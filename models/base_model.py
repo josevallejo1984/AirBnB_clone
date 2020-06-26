@@ -8,7 +8,7 @@ from datetime import datetime
 
 class BaseModel(object):
     """Define class BaseModel"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initialized constructor"""
         time_form = "%Y-%m-%dT%H:%M:%S.%f"    
         self.updated_at = datetime.today()
@@ -29,7 +29,6 @@ class BaseModel(object):
         new_dict["updated_at"] = self.updated_at.isoformat()
         new_dict["created_at"] = self.created_at.isoformat()
         #new_dict["__class__"] = self.__class__.__name__
-        
         return new_dict
 
     def __str__(self):
