@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Create class BaseModel that defines all common 
+"""Create class BaseModel that defines all common
    attributes/methods for other class
 """
 import models
@@ -10,29 +10,30 @@ from datetime import datetime
 
 class BaseModel(object):
     """Define class BaseModel"""
+
     def __init__(self, *args, **kwargs):
         """Initialized constructor"""
         time_form = "%Y-%m-%dT%H:%M:%S.%f"
         self.updated_at = datetime.today()
         self.id = str(uuid4())
         self.created_at = datetime.today()
-        if kwargs is not None:
-            
+        if len(kwargs) > 0:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
                     self.__dict__[k] = datetime.strptime(v, time_form)
                 else:
                     self.__dict__[k] = v
+        else:
+            storage.new(self)
 
-        storage.new(self)          
     def save(self):
         """updates the public instance attributes with the current datetime
         """
         self.updated_at = datetime.today()
-        models.storage.save()
+        storage.save()
 
     def to_dict(self):
-        """ returns a dictionary containing all keys/values of 
+        """ returns a dictionary containing all keys/values of
         __dict__ of the instance
         """
         new_dict = self.__dict__.copy()
