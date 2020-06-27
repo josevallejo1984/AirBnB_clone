@@ -23,9 +23,8 @@ class BaseModel(object):
                     self.__dict__[k] = datetime.strptime(v, time_form)
                 else:
                     self.__dict__[k] = v
-        else:
-            models.storage.new(self)          
 
+        storage.new(self)          
     def save(self):
         """updates the public instance attributes with the current datetime
         """

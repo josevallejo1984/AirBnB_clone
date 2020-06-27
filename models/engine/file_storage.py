@@ -20,7 +20,10 @@ class FileStorage(object):
         return self.__objects
     
     def new(self, obj):
-        self.__objects.update({str(obj.__class__.__name__) + '.' + str(obj.id): obj.__dict__})
+        id_obj = str(obj.__dict__.get('id'))
+        name = str(obj.__class__.__name__)
+        key = name + '.' + id_obj
+        self.__objects.update({key: str(obj.__dict__)})
 
     def save(self):
         with open(self.__file_path, mode='w', encoding='utf-8') as my_file:

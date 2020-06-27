@@ -11,6 +11,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """Signal C+d for exit."""
+        print()
         return True
 
     def do_quit(self, line):
