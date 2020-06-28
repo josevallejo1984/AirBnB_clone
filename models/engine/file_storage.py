@@ -44,9 +44,10 @@ class FileStorage(object):
             with open(self.__file_path, mode='r', encoding='utf-8') as my_file:
                 from models.base_model import BaseModel
                 new_dict = json.loads(my_file.read())
-                for k, v in new_dict.items():
-                    objt = BaseModel(**v)
-                    FileStorage.__objects[k] = objt
+                for key, value in new_dict.items():
+                    class_name = value.get("__class__")
+                    objt = eval(class_name + "(**value)")
+                    FileStorage.__objects[key] = objt
 
         except IOError:
             pass
