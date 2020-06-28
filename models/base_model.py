@@ -2,17 +2,16 @@
 """Create class BaseModel that defines all common
    attributes/methods for other class
 """
-import models
 from models import storage
 from uuid import uuid4
 from datetime import datetime
 
 
 class BaseModel(object):
-    """Define class BaseModel"""
+    """Define class BaseModel."""
 
     def __init__(self, *args, **kwargs):
-        """Initialized constructor"""
+        """Initialize constructor."""
         time_form = "%Y-%m-%dT%H:%M:%S.%f"
         self.updated_at = datetime.today()
         self.id = str(uuid4())
@@ -22,19 +21,21 @@ class BaseModel(object):
                 if k == "created_at" or k == "updated_at":
                     self.__dict__[k] = datetime.strptime(v, time_form)
                 else:
-                    self.__dict__[k] = v
+                    if k != "__class__":
+                        self.__dict__[k] = v
         else:
             storage.new(self)
 
     def save(self):
-        """updates the public instance attributes with the current datetime
-        """
+        """Update public instance attributes with the current datetime."""
         self.updated_at = datetime.today()
         storage.save()
 
     def to_dict(self):
-        """ returns a dictionary containing all keys/values of
-        __dict__ of the instance
+        """Copy dict od instance for ubdate values.
+
+        Returns:
+            dict: dict with new values and update date modificated
         """
         new_dict = self.__dict__.copy()
         new_dict["updated_at"] = self.updated_at.isoformat()
@@ -44,6 +45,10 @@ class BaseModel(object):
         return new_dict
 
     def __str__(self):
-        """print string"""
+        """Representation for name class, id and __dict__.
+
+        Returns:
+            string: [class_name] (id) __dict__
+        """
         class_name = self.__class__.__name__
         return '[{}] ({}) {}'.format(class_name, self.id, self.__dict__)
