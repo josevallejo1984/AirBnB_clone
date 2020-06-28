@@ -43,6 +43,12 @@ class FileStorage(object):
         try:
             with open(self.__file_path, mode='r', encoding='utf-8') as my_file:
                 from models.base_model import BaseModel
+                from models.user import User
+                from models.state import State
+                from models.city import City
+                from models.amenity import Amenity
+                from models.place import Place
+                from models.review import Review
                 new_dict = json.loads(my_file.read())
                 for key, value in new_dict.items():
                     class_name = value.get("__class__")
