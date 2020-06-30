@@ -18,6 +18,16 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb)'
 
+    __list_class = [
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Amenity",
+        "Place",
+        "Review"
+    ]
+
     def do_create(self, line):
         """Create classes"""
         if self.check_class_name(line):
@@ -53,17 +63,25 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Show all instnaces"""
         new_list = []
+        match = True
+        args = shlex.split(line)
         all_objs = storage.all()
         if len(line) != 0:
-            for key, value in all_objs.items():
-                if line == key.split('.')[0]:
-                    obj = all_objs[key]
-                    new_list.append(obj.__str__())
+            if args[0] in HBNBCommand.__list_class:
+                for key, value in all_objs.items():
+                    if line == key.split('.')[0]:
+                        obj = all_objs[key]
+                        new_list.append(obj.__str__())
+            else:
+                print("** class doesn't exist **")
+                match = False
+
         else:
             for key, value in all_objs.items():
                 obj = all_objs[key]
                 new_list.append(obj.__str__())
-        print(new_list)
+        if match:
+            print(new_list)
 
     def do_update(self, line):
         """Update console"""
