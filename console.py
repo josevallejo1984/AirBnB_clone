@@ -140,13 +140,12 @@ class HBNBCommand(cmd.Cmd):
     def found_class_name(self, name=""):
         """Find the name class."""
         if self.check_class_name(name) and self.check_class_id(name):
-            args = name.split(' ')
+            args = shlex.split(name)
             key = args[0] + '.' + args[1]
-            all_objs = storage.all()
-            for name_class in all_objs.keys():
-                if args[0] == name_class.split('.')[0]:
-                    return key
-            print("** class doesn't exist **")
+            if args[0] in HBNBCommand.__list_class:
+                return key
+            else:
+                print("** class doesn't exist **")
         return None
 
 
