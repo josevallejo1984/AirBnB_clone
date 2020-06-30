@@ -18,6 +18,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
 
     def do_create(self, line):
+        """Create classes"""
         if self.check_class_name(line):
             try:
                 new = eval(line + "()")
@@ -27,6 +28,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_show(self, line):
+        """"Show instances"""
         key = self.found_class_name(line)
         if key is not None:
             all_objs = storage.all()
@@ -37,6 +39,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, line):
+        """"Destroy instances"""
         key = self.found_class_name(line)
         if key is not None:
             all_objs = storage.all()
@@ -47,6 +50,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, line):
+        """Show all instnaces"""
         new_list = []
         all_objs = storage.all()
         if len(line) != 0:
@@ -64,6 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print(new_list)
 
     def do_update(self, line):
+        """Update console"""
         key = self.found_class_name(line)
         if key is not None:
             args = line.split(' ')
@@ -99,6 +104,7 @@ class HBNBCommand(cmd.Cmd):
             return True
 
     def check_class_id(self, name=""):
+        """Check class id"""
         if len(name.split(' ')) == 1:
             print("** instance id missing **")
             return False
