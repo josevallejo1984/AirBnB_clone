@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel
+from models import storage
 
 my_model = BaseModel()
-my_model.name = "Holberton"
-my_model.my_number = 89
+my_model.name = None
+my_model.my_number = float('nan')
 print(my_model)
 my_model.save()
 print(my_model)

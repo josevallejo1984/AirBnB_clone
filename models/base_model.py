@@ -12,14 +12,14 @@ class BaseModel(object):
 
     def __init__(self, *args, **kwargs):
         """Initialize constructor."""
-        time_form = "%Y-%m-%dT%H:%M:%S.%f"
+        t_form = "%Y-%m-%dT%H:%M:%S.%f"
         self.updated_at = datetime.today()
         self.id = str(uuid4())
         self.created_at = datetime.today()
         if len(kwargs) > 0:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.strptime(v, time_form)
+                    self.__dict__[k] = datetime.strptime(v, t_form)
                 else:
                     if k != "__class__":
                         self.__dict__[k] = v
