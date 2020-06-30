@@ -7,10 +7,29 @@ from models.place import Place
 from time import sleep
 from models import storage
 import models
+module_doc = models.place.__doc__
 
 
 class TestBase_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the Place class."""
+    def class_none(self):
+        my_model = Place(None)
+        self.assertNotIn(None, my_model.__dict__.values())
+
+    def test_module_docstring(self):
+        """Test for the existence of module docstring"""
+        self.assertIsNot(module_doc, None,
+                         "base_model.py needs a docstring")
+        self.assertTrue(len(module_doc) > 1,
+                        "base_model.py needs a docstring")
+
+    def test_class_docstring(self):
+        """Test for the Place class docstring"""
+        self.assertIsNot(Place.__doc__, None,
+                         "Place class needs a docstring")
+        self.assertTrue(len(Place.__doc__) >= 1,
+                        "Place class needs a docstring")
+
     def class_none(self):
         my_model = Place(None)
         self.assertNotIn(None, my_model.__dict__.values())
@@ -31,6 +50,14 @@ class TestBase_instantiation(unittest.TestCase):
 class TestPlace_json(unittest.TestCase):
     """Unittests for testing json."""
 
+    def setUp(self):
+        """set up"""
+        pass
+
+    def tearDown(self):
+        """tearDown"""
+        pass
+
     def test_my_model_json(self):
         """Test my model json"""
         my_model = Place()
@@ -38,7 +65,7 @@ class TestPlace_json(unittest.TestCase):
         my_model.name = "Carlos"
         my_model.user_id = {'Name_1': 'Carlos', 'Age_1': 24,
                             'Name_2': 'Jose', 'Age_2': 32}
-        my_model.city_id = ""
+        my_model.Place_id = ""
         my_model.number_bathrooms = [3, 2, 5]
         my_model.amenity_ids = ["Carlos", "Barros"]
         my_model.price_by_night = 25.25

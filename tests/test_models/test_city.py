@@ -7,10 +7,29 @@ from models.city import City
 from time import sleep
 from models import storage
 import models
+module_doc = models.city.__doc__
 
 
 class TestBase_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the City class."""
+    def class_none(self):
+        my_model = City(None)
+        self.assertNotIn(None, my_model.__dict__.values())
+
+    def test_module_docstring(self):
+        """Test for the existence of module docstring"""
+        self.assertIsNot(module_doc, None,
+                         "base_model.py needs a docstring")
+        self.assertTrue(len(module_doc) > 1,
+                        "base_model.py needs a docstring")
+
+    def test_class_docstring(self):
+        """Test for the City class docstring"""
+        self.assertIsNot(City.__doc__, None,
+                         "City class needs a docstring")
+        self.assertTrue(len(City.__doc__) >= 1,
+                        "City class needs a docstring")
+
     def class_none(self):
         my_model = City(None)
         self.assertNotIn(None, my_model.__dict__.values())
@@ -30,6 +49,14 @@ class TestBase_instantiation(unittest.TestCase):
 
 class TestCity_json(unittest.TestCase):
     """Unittests for testing json."""
+
+    def setUp(self):
+        """set up"""
+        pass
+
+    def tearDown(self):
+        """tearDown"""
+        pass
 
     def test_my_model_json(self):
         """Test my model json"""
