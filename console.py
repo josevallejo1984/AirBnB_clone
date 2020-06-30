@@ -102,7 +102,6 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """Overwrite method emptyline."""
-        print('', end="")
 
     def check_class_name(self, name=""):
         """Check if stdin user typed class name and id."""
