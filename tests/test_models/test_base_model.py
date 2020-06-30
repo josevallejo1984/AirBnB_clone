@@ -9,6 +9,7 @@ from models import storage
 import models
 module_doc = models.base_model.__doc__
 
+
 class TestBase_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the BaseModel class."""
     def class_none(self):
@@ -28,6 +29,7 @@ class TestBase_instantiation(unittest.TestCase):
                          "BaseModel class needs a docstring")
         self.assertTrue(len(BaseModel.__doc__) >= 1,
                         "BaseModel class needs a docstring")
+
     def test_input(self):
         """checks for valid input """
         my_model = BaseModel()
@@ -72,11 +74,10 @@ class TestBaseModel_json(unittest.TestCase):
         my_model.none_name = None
         my_model.my_number_inf = float('inf')
         my_model.my_number_nan = float('nan')
-
         my_model_json = my_model.to_dict()
         self.assertNotEqual(type(my_model_json), type(my_model))
         self.assertNotEqual(my_model.id, my_model_2.id)
-        self.assertEqual(str(type(my_model)), 
+        self.assertEqual(str(type(my_model)),
                          "<class 'models.base_model.BaseModel'>")
 
         for key, value in my_model_json.items():
@@ -129,6 +130,7 @@ class TestBaseModel_json(unittest.TestCase):
         self.assertEqual(new_d["created_at"], bm.created_at.strftime(t_format))
         self.assertEqual(new_d["updated_at"], bm.updated_at.strftime(t_format))
 
+
 class TestBaseModel_save(unittest.TestCase):
     """Unittests for testing save method of the BaseModel class."""
 
@@ -178,7 +180,7 @@ class TestBaseModel_save(unittest.TestCase):
         bmid = "BaseModel." + bm.id
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
-    
+
     @mock.patch('models.storage')
     def test_save(self, mock_storage):
         """Test that save method updates `updated_at` and calls
