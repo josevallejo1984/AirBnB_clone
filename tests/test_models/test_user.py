@@ -6,6 +6,7 @@ import sys
 from models.user import User
 from time import sleep
 from models import storage
+from unittest import mock
 import models
 module_doc = models.user.__doc__
 
@@ -167,6 +168,21 @@ class TestUser_save(unittest.TestCase):
         userid = "User." + user.id
         with open("file.json", "r") as f:
             self.assertIn(userid, f.read())
+
+    @mock.patch('models.storage')
+    def test_save(self, mock_storage):
+        """Test that save method updates `updated_at` and calls
+        `storage.save`"""
+        inst = User()
+        old_created_at = inst.created_at
+        old_updated_at = inst.updated_at
+        inst.save()
+        new_created_at = inst.created_at
+        new_updated_at = inst.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
+        self.assertEqual(old_created_at, new_created_at)
+        self.assertTrue(mock_storage.new())
+        self.assertTrue(mock_storage.save())
 
 
 if __name__ == "__main__":

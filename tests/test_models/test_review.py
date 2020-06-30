@@ -6,6 +6,7 @@ import sys
 from models.review import Review
 from time import sleep
 from models import storage
+from unittest import mock
 import models
 module_doc = models.review.__doc__
 
