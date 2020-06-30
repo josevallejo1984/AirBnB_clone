@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_show(self, line):
-        """"Show instances"""
+        """Show instances"""
         key = self.found_class_name(line)
         if key is not None:
             all_objs = storage.all()
@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, line):
-        """"Destroy instances"""
+        """Destroy instances"""
         key = self.found_class_name(line)
         if key is not None:
             all_objs = storage.all()

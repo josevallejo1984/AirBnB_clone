@@ -11,7 +11,7 @@ class Place(BaseModel):
     description = ""
     number_rooms = None
     number_bathrooms = None
-    price_by_night: None
-    latitude: None
-    longitude: None
+    price_by_night = None
+    latitude = None
+    longitude = None
     amenity_ids = []
