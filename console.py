@@ -88,26 +88,29 @@ class HBNBCommand(cmd.Cmd):
         key = self.found_class_name(line)
         if key is not None:
             args = shlex.split(line)
-            if len(args) == 2:
-                print("** attribute name missing **")
-            elif len(args) == 3:
-                print("** value missing **")
-            else:
-                if args[3][0] and args[3][-1] != '"':
-                    try:
-                        args[3] = int(args[3])
-                    except ValueError:
+            all_objs = storage.all()
+            if key in all_objs.keys():
+                if len(args) == 2:
+                    print("** attribute name missing **")
+                elif len(args) == 3:
+                    print("** value missing **")
+                else:
+                    if args[3][0] and args[3][-1] != '"':
                         try:
-                            args[3] = float(args[3])
+                            args[3] = int(args[3])
                         except ValueError:
-                            pass
+                            try:
+                                args[3] = float(args[3])
+                            except ValueError:
+                                pass
 
-                all_objs = storage.all()
-                obj = all_objs[key]
-                obj.__dict__.update({args[2]: args[3]})
-                setattr(obj, args[2], type(
-                    getattr(obj, args[2], args[3]))(args[3]))
-                obj.save()
+                    obj = all_objs[key]
+                    obj.__dict__.update({args[2]: args[3]})
+                    setattr(obj, args[2], type(
+                        getattr(obj, args[2], args[3]))(args[3]))
+                    obj.save()
+            else:
+                print("** no instance found **")
 
     def do_EOF(self, line):
         """Signal C+d for exit."""
@@ -139,11 +142,12 @@ class HBNBCommand(cmd.Cmd):
 
     def found_class_name(self, name=""):
         """Find the name class."""
-        if self.check_class_name(name) and self.check_class_id(name):
+        if self.check_class_name(name):
             args = shlex.split(name)
-            key = args[0] + '.' + args[1]
             if args[0] in HBNBCommand.__list_class:
-                return key
+                if self.check_class_id(name):
+                    key = args[0] + '.' + args[1]
+                    return key
             else:
                 print("** class doesn't exist **")
         return None
