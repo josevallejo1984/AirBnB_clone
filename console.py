@@ -62,10 +62,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in all_objs.items():
                 obj = all_objs[key]
                 new_list.append(obj.__str__())
-        if len(new_list) == 0:
-            print("** no instance found **")
-        else:
-            print(new_list)
+        print(new_list)
 
     def do_update(self, line):
         """Update console"""
@@ -77,6 +74,15 @@ class HBNBCommand(cmd.Cmd):
             elif len(args) == 3:
                 print("** value missing **")
             else:
+                if args[3][0] and args[3][-1] != '"':
+                    try:
+                        args[3] = int(args[3])
+                    except ValueError:
+                        try:
+                            args[3] = float(args[3])
+                        except ValueError:
+                            pass
+
                 all_objs = storage.all()
                 obj = all_objs[key]
                 obj.__dict__.update({args[2]: args[3]})
