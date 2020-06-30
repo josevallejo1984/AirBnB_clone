@@ -7,7 +7,7 @@ from models.base_model import BaseModel
 from time import sleep
 from models import storage
 import models
-
+module_doc = models.base_model.__doc__
 
 class TestBase_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the BaseModel class."""
@@ -15,6 +15,19 @@ class TestBase_instantiation(unittest.TestCase):
         my_model = BaseModel(None)
         self.assertNotIn(None, my_model.__dict__.values())
 
+    def test_module_docstring(self):
+        """Test for the existence of module docstring"""
+        self.assertIsNot(module_doc, None,
+                         "base_model.py needs a docstring")
+        self.assertTrue(len(module_doc) > 1,
+                        "base_model.py needs a docstring")
+
+    def test_class_docstring(self):
+        """Test for the BaseModel class docstring"""
+        self.assertIsNot(BaseModel.__doc__, None,
+                         "BaseModel class needs a docstring")
+        self.assertTrue(len(BaseModel.__doc__) >= 1,
+                        "BaseModel class needs a docstring")
     def test_input(self):
         """checks for valid input """
         my_model = BaseModel()
@@ -30,6 +43,20 @@ class TestBase_instantiation(unittest.TestCase):
 
 class TestBaseModel_json(unittest.TestCase):
     """Unittests for testing json."""
+    def setUp(self):
+        """set up"""
+        pass
+
+    def tearDown(self):
+        """tearDown"""
+        pass
+
+    def test_init(self):
+        """test init"""
+        with self.assertRaises(TypeError) as e:
+            BaseModel.__init__()
+        msg = "__init__() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(e.exception), msg)
 
     def test_my_model_json(self):
         """Test my model json"""
@@ -49,6 +76,8 @@ class TestBaseModel_json(unittest.TestCase):
         my_model_json = my_model.to_dict()
         self.assertNotEqual(type(my_model_json), type(my_model))
         self.assertNotEqual(my_model.id, my_model_2.id)
+        self.assertEqual(str(type(my_model)), 
+                         "<class 'models.base_model.BaseModel'>")
 
         for key, value in my_model_json.items():
             if key == "__class__":
@@ -89,6 +118,16 @@ class TestBaseModel_json(unittest.TestCase):
             else:
                 self.assertTrue(value, my_model.__dict__.values())
 
+    def test_to_dict_values(self):
+        """test that values in dict returned from to_dict are correct"""
+        t_format = "%Y-%m-%dT%H:%M:%S.%f"
+        bm = BaseModel()
+        new_d = bm.to_dict()
+        self.assertEqual(new_d["__class__"], "BaseModel")
+        self.assertEqual(type(new_d["created_at"]), str)
+        self.assertEqual(type(new_d["updated_at"]), str)
+        self.assertEqual(new_d["created_at"], bm.created_at.strftime(t_format))
+        self.assertEqual(new_d["updated_at"], bm.updated_at.strftime(t_format))
 
 class TestBaseModel_save(unittest.TestCase):
     """Unittests for testing save method of the BaseModel class."""
@@ -139,6 +178,21 @@ class TestBaseModel_save(unittest.TestCase):
         bmid = "BaseModel." + bm.id
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
+    
+    @mock.patch('models.storage')
+    def test_save(self, mock_storage):
+        """Test that save method updates `updated_at` and calls
+        `storage.save`"""
+        inst = BaseModel()
+        old_created_at = inst.created_at
+        old_updated_at = inst.updated_at
+        inst.save()
+        new_created_at = inst.created_at
+        new_updated_at = inst.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
+        self.assertEqual(old_created_at, new_created_at)
+        self.assertTrue(mock_storage.new.called)
+        self.assertTrue(mock_storage.save.called)
 
 
 if __name__ == "__main__":
