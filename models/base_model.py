@@ -26,6 +26,15 @@ class BaseModel(object):
         else:
             storage.new(self)
 
+    def __str__(self):
+        """Representation for name class, id and __dict__.
+
+        Returns:
+            string: [class_name] (id) __dict__
+        """
+        class_name = self.__class__.__name__
+        return '[{}] ({}) {}'.format(class_name, self.id, self.__dict__)
+
     def save(self):
         """Update public instance attributes with the current datetime."""
         self.updated_at = datetime.today()
@@ -43,12 +52,3 @@ class BaseModel(object):
         new_dict["__class__"] = self.__class__.__name__
 
         return new_dict
-
-    def __str__(self):
-        """Representation for name class, id and __dict__.
-
-        Returns:
-            string: [class_name] (id) __dict__
-        """
-        class_name = self.__class__.__name__
-        return '[{}] ({}) {}'.format(class_name, self.id, self.__dict__)

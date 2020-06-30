@@ -3,54 +3,55 @@
 import unittest
 import os
 import sys
-from models.base_model import BaseModel
+from models.review import Review
 from time import sleep
 from models import storage
 import models
 
 
 class TestBase_instantiation(unittest.TestCase):
-    """Unittests for testing instantiation of the BaseModel class."""
+    """Unittests for testing instantiation of the Review class."""
     def class_none(self):
-        my_model = BaseModel(None)
+        my_model = Review(None)
         self.assertNotIn(None, my_model.__dict__.values())
 
     def test_input(self):
         """checks for valid input """
-        my_model = BaseModel()
-        self.assertEqual(BaseModel, type(BaseModel()))
-        self.assertIsNotNone(BaseModel)
-        self.assertIn(BaseModel(), storage.all().values())
-        my_model.name = "Holberton"
-        my_model.my_number = 89.533535
-        self.assertTrue(89.533535 == my_model.my_number and
-                        my_model.name == "Holberton")
-        self.assertIsInstance(my_model, BaseModel)
+        my_model = Review()
+        self.assertEqual(Review, type(Review()))
+        self.assertIsNotNone(Review)
+        self.assertIn(Review(), storage.all().values())
+        my_model.user_id = "asdfa8sdf5asdf5as1d"
+        my_model.place_id = "Carlos"
+        self.assertTrue("Carlos" == my_model.place_id and
+                        my_model.user_id == "asdfa8sdf5asdf5as1d")
+        self.assertIsInstance(my_model, Review)
 
 
-class TestBaseModel_json(unittest.TestCase):
+class TestReview_json(unittest.TestCase):
     """Unittests for testing json."""
 
     def test_my_model_json(self):
         """Test my model json"""
-        my_model = BaseModel()
-        my_model_2 = BaseModel()
+        my_model = Review()
+        my_model_2 = Review()
         my_model.name = "Carlos"
-        my_model.dict_name = {'Name_1': 'Carlos', 'Age_1': 24,
-                              'Name_2': 'Jose', 'Age_2': 32}
-        my_model.empty_name = ""
-        my_model.empty_list_name = []
-        my_model.list_name = ["Carlos", "Barros"]
-        my_model.my_number = 27
-        my_model.none_name = None
-        my_model.my_number_inf = float('inf')
-        my_model.my_number_nan = float('nan')
+        my_model.user_id = {'Name_1': 'Carlos', 'Age_1': 24,
+                            'Name_2': 'Jose', 'Age_2': 32}
+        my_model.city_id = ""
+        my_model.number_bathrooms = [3, 2, 5]
+        my_model.amenity_ids = ["Carlos", "Barros"]
+        my_model.price_by_night = 25.25
+        my_model.name = None
+        my_model.latitude = float('inf')
+        my_model.longitude = float('nan')
 
         my_model_json = my_model.to_dict()
         self.assertNotEqual(type(my_model_json), type(my_model))
         self.assertNotEqual(my_model.id, my_model_2.id)
 
         for key, value in my_model_json.items():
+            self.assertTrue(type(key) == str)
             if key == "__class__":
                 self.assertIs(value, my_model.__class__.__name__)
             elif key == "updated_at":
@@ -62,20 +63,20 @@ class TestBaseModel_json(unittest.TestCase):
 
     def test_two_models_different_created_at(self):
         """Test differents created_at"""
-        my_model = BaseModel()
+        my_model = Review()
         sleep(0.05)
-        my_model_2 = BaseModel()
+        my_model_2 = Review()
         self.assertLess(my_model.created_at, my_model_2.created_at)
         self.assertLess(my_model.updated_at, my_model_2.updated_at)
 
-    def test_base_model_dict(self):
+    def test_Review_dict(self):
         """Test base model dict"""
-        my_model = BaseModel()
+        my_model = Review()
         my_model.name = "Betty"
-        my_model.my_number = 12.89
+        my_model.longitude = 28.51
         my_model_json = my_model.to_dict()
-        my_new_model = BaseModel(**my_model_json)
-        self.assertTrue(isinstance(my_new_model, BaseModel))
+        my_new_model = Review(**my_model_json)
+        self.assertTrue(isinstance(my_new_model, Review))
         self.assertNotEqual(my_new_model, my_model)
         self.assertTrue(my_new_model.__dict__ == my_model.__dict__)
 
@@ -90,8 +91,8 @@ class TestBaseModel_json(unittest.TestCase):
                 self.assertTrue(value, my_model.__dict__.values())
 
 
-class TestBaseModel_save(unittest.TestCase):
-    """Unittests for testing save method of the BaseModel class."""
+class TestReview_save(unittest.TestCase):
+    """Unittests for testing save method of the Review class."""
 
     @classmethod
     def setUp(self):
@@ -111,34 +112,34 @@ class TestBaseModel_save(unittest.TestCase):
         except IOError:
             pass
 
-    def test_save_reload_base_model(self):
+    def test_save_reload_Review(self):
         """Test save reload base model"""
         all_objs = storage.all()
         self.assertTrue((type(all_objs) == dict) and
-                        (not isinstance(type(all_objs), BaseModel)))
+                        (not isinstance(type(all_objs), Review)))
 
         for obj_id in all_objs.keys():
             obj = all_objs[obj_id]
             self.assertTrue(type(obj_id) == str)
 
     def test_new_instance_stored_in_objects(self):
-        self.assertIn(BaseModel(), models.storage.all().values())
+        self.assertIn(Review(), models.storage.all().values())
 
     def test_instantiation_with_None_kwargs(self):
         with self.assertRaises(TypeError):
-            BaseModel(id=None, created_at=None, updated_at=None)
+            Review(id=None, created_at=None, updated_at=None)
 
     def test_save_with_arg(self):
-        bm = BaseModel()
+        review = Review()
         with self.assertRaises(TypeError):
-            bm.save(None)
+            review.save(None)
 
     def test_save_updates_file(self):
-        bm = BaseModel()
-        bm.save()
-        bmid = "BaseModel." + bm.id
+        review = Review()
+        review.save()
+        reviewid = "Review." + review.id
         with open("file.json", "r") as f:
-            self.assertIn(bmid, f.read())
+            self.assertIn(reviewid, f.read())
 
 
 if __name__ == "__main__":
