@@ -2,6 +2,7 @@
 """New class inherit from cmd"""
 import cmd
 import sys
+import shlex
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -68,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
         """Update console"""
         key = self.found_class_name(line)
         if key is not None:
-            args = line.split(' ')
+            args = shlex.split(line)
             if len(args) == 2:
                 print("** attribute name missing **")
             elif len(args) == 3:
@@ -86,6 +87,8 @@ class HBNBCommand(cmd.Cmd):
                 all_objs = storage.all()
                 obj = all_objs[key]
                 obj.__dict__.update({args[2]: args[3]})
+                setattr(obj, args[2], type(
+                    getattr(obj, args[2], args[3]))(args[3]))
                 obj.save()
 
     def do_EOF(self, line):
