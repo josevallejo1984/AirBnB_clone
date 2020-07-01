@@ -1,4 +1,4 @@
-<h1><img src="https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/6/65f4a1dd9c51265f49d0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200701%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200701T040042Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=bca3087278244f2a5d6cdf15b30075f56fc7d57d4f12828fafed860cb3a9242b" alt="logo python" width="650" height="300"><br/><b>0x00. AirBnB clone - The console</b></h1>
+<h1><img src="images/hbnb img.png" alt="logo python" width="650" height="300"><br/><b>0x00. AirBnB clone - The console</b></h1>
 
 ## **Background Context**
 ## **First step: Write a command interpreter to manage your AirBnB objects.**
