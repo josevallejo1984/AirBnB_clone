@@ -1,5 +1,11 @@
 <h1><img src="images/hbnb img.png" alt="logo python" width="650" height="300"><br/><b>0x00. AirBnB clone - The console</b></h1>
 
+[![Twitter Jose](https://img.shields.io/twitter/follow/joseAVallejo12?label=josevallejo&style=social)](https://twitter.com/JoseAVallejo12)
+[![Twitter Carlos](https://img.shields.io/twitter/follow/cbarros27?label=CarlosBarros&style=social)](https://twitter.com/cbarros27)
+[![license](https://img.shields.io/github/license/cbarros7/AirBnB_clone?style=social)]
+[![python version](https://img.shields.io/pypi/pyversions/3?style=social)]
+[![repo size](https://img.shields.io/github/repo-size/cbarros7/AirBnB_clone?style=social)]
+
 ## **Background Context**
 ## **First step: Write a command interpreter to manage your AirBnB objects.**
 This is the first step towards building your first full web application: the AirBnB clone. This first step is very important because you will use what you build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
