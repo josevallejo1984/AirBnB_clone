@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest cases for Amenity"""
+"""Unittest cases for Place"""
 
 import unittest
 from models.city import City
@@ -24,15 +24,15 @@ class Test_City(unittest.TestCase):
     def test_pep8_base_model(self):
         """ Test for PEP8 ok. """
         pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/city.py'])
+        result = pep8style.check_files(['models/place.py'])
         self.assertEqual(result.total_errors, 0, "Please fix pep8")
 
     def test_pep8_tests_base(self):
         """ Test for PEP8 ok. """
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(
-            ['tests/test_models/test_city.py'])
-        self.assertNotEqual(result.total_errors, 0, "Please fix pep8")
+            ['tests/test_models/test_place.py'])
+        self.assertEqual(result.total_errors, 0, "Please fix pep8")
 
     def test_docstring(self):
         """Checks if docstring exists"""

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest cases for Amenity"""
+"""Unittest cases for City"""
 
 import unittest
 from models.city import City
@@ -32,7 +32,7 @@ class Test_City(unittest.TestCase):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(
             ['tests/test_models/test_city.py'])
-        self.assertNotEqual(result.total_errors, 0, "Please fix pep8")
+        self.assertEqual(result.total_errors, 0, "Please fix pep8")
 
     def test_docstring(self):
         """Checks if docstring exists"""

@@ -32,7 +32,7 @@ class Test_State(unittest.TestCase):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(
             ['tests/test_models/test_state.py'])
-        self.assertNotEqual(result.total_errors, 0, "Please fix pep8")
+        self.assertEqual(result.total_errors, 0, "Please fix pep8")
 
     def test_docstring(self):
         """Checks if docstring exists"""
