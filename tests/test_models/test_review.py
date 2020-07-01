@@ -6,11 +6,31 @@ import sys
 from models.review import Review
 from time import sleep
 from models import storage
+from unittest import mock
 import models
+module_doc = models.review.__doc__
 
 
 class TestBase_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the Review class."""
+    def class_none(self):
+        my_model = Review(None)
+        self.assertNotIn(None, my_model.__dict__.values())
+
+    def test_module_docstring(self):
+        """Test for the existence of module docstring"""
+        self.assertIsNot(module_doc, None,
+                         "base_model.py needs a docstring")
+        self.assertTrue(len(module_doc) > 1,
+                        "base_model.py needs a docstring")
+
+    def test_class_docstring(self):
+        """Test for the Review class docstring"""
+        self.assertIsNot(Review.__doc__, None,
+                         "Review class needs a docstring")
+        self.assertTrue(len(Review.__doc__) >= 1,
+                        "Review class needs a docstring")
+
     def class_none(self):
         my_model = Review(None)
         self.assertNotIn(None, my_model.__dict__.values())
@@ -22,14 +42,22 @@ class TestBase_instantiation(unittest.TestCase):
         self.assertIsNotNone(Review)
         self.assertIn(Review(), storage.all().values())
         my_model.user_id = "asdfa8sdf5asdf5as1d"
-        my_model.place_id = "Carlos"
-        self.assertTrue("Carlos" == my_model.place_id and
+        my_model.Review_id = "Carlos"
+        self.assertTrue("Carlos" == my_model.Review_id and
                         my_model.user_id == "asdfa8sdf5asdf5as1d")
         self.assertIsInstance(my_model, Review)
 
 
 class TestReview_json(unittest.TestCase):
     """Unittests for testing json."""
+
+    def setUp(self):
+        """set up"""
+        pass
+
+    def tearDown(self):
+        """tearDown"""
+        pass
 
     def test_my_model_json(self):
         """Test my model json"""

@@ -6,11 +6,31 @@ import sys
 from models.user import User
 from time import sleep
 from models import storage
+from unittest import mock
 import models
+module_doc = models.user.__doc__
 
 
-class TestBase_instantiation(unittest.TestCase):
-    """Unittests for testing instantiation of th= User class."""
+class TestUser_instantiation(unittest.TestCase):
+    """Unittests for testing instantiation of the User class."""
+    def class_none(self):
+        my_model = User(None)
+        self.assertNotIn(None, my_model.__dict__.values())
+
+    def test_module_docstring(self):
+        """Test for the existence of module docstring"""
+        self.assertIsNot(module_doc, None,
+                         "base_model.py needs a docstring")
+        self.assertTrue(len(module_doc) > 1,
+                        "base_model.py needs a docstring")
+
+    def test_class_docstring(self):
+        """Test for the User class docstring"""
+        self.assertIsNot(User.__doc__, None,
+                         "User class needs a docstring")
+        self.assertTrue(len(User.__doc__) >= 1,
+                        "User class needs a docstring")
+
     def class_none(self):
         my_model = User(None)
         self.assertNotIn(None, my_model.__dict__.values())
@@ -30,6 +50,14 @@ class TestBase_instantiation(unittest.TestCase):
 
 class TestUser_json(unittest.TestCase):
     """Unittests for testing json."""
+
+    def setUp(self):
+        """set up"""
+        pass
+
+    def tearDown(self):
+        """tearDown"""
+        pass
 
     def test_my_model_json(self):
         """Test my model json"""
@@ -140,6 +168,21 @@ class TestUser_save(unittest.TestCase):
         userid = "User." + user.id
         with open("file.json", "r") as f:
             self.assertIn(userid, f.read())
+
+    @mock.patch('models.storage')
+    def test_save(self, mock_storage):
+        """Test that save method updates `updated_at` and calls
+        `storage.save`"""
+        inst = User()
+        old_created_at = inst.created_at
+        old_updated_at = inst.updated_at
+        inst.save()
+        new_created_at = inst.created_at
+        new_updated_at = inst.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
+        self.assertEqual(old_created_at, new_created_at)
+        self.assertTrue(mock_storage.new())
+        self.assertTrue(mock_storage.save())
 
 
 if __name__ == "__main__":
