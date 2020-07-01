@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 from time import sleep
 from models import storage
 import models
+import pep8 as pycodestyle
 from unittest import mock
 module_doc = models.base_model.__doc__
 
@@ -23,6 +24,14 @@ class TestBase_instantiation(unittest.TestCase):
                          "base_model.py needs a docstring")
         self.assertTrue(len(module_doc) > 1,
                         "base_model.py needs a docstring")
+
+    def test_pep8_conformance(self):
+        """Test that models/base_model.py conforms to PEP8."""
+        for path in ['models/base_model.py',
+                     'tests/test_models/test_base_model.py']:
+            with self.subTest(path=path):
+                errors = pycodestyle.Checker(path).check_all()
+                self.assertEqual(errors, 0)
 
     def test_class_docstring(self):
         """Test for the BaseModel class docstring"""
