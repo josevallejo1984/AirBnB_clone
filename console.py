@@ -152,7 +152,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         return None
 
-
     def precmd(self, line):
         args = line.split('.')
         if len(args) >= 2:
@@ -162,9 +161,9 @@ class HBNBCommand(cmd.Cmd):
                 b = a.replace(')', '.')
                 c = b.split('.')
                 comand = c[0]
-            #print(clas_name)
-            #print(comand)
-            #print(argvs)
+            # print(clas_name)
+            # print(comand)
+            # print(argvs)
                 line = str(comand + ' ' + clas_name)
             elif args[1].count('(') == 1 and args[1].count(')') == 1:
                 arguments = ""
@@ -173,22 +172,15 @@ class HBNBCommand(cmd.Cmd):
                 b = a.replace(')', '.')
                 c = b.split('.')
                 comand = c[0]
-                argvs = shlex.split(c[1],'"')
+                argvs = shlex.split(c[1], '"')
                 for wrd in argvs:
                     arguments = arguments + wrd
 
                 d = str(comand + ' ' + clas_name + ' ' + arguments)
-                line = d.replace(',',' ')
+                line = d.replace(',', ' ')
                 print(line)
 
-
-
-
-
         return line
-
-
-
 
 
 if __name__ == '__main__':
