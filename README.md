@@ -1,4 +1,4 @@
-<h1><img src="images/hbnb img.png" alt="logo python" width="650" height="300"><br/><b>0x00. AirBnB clone - The console</b></h1>
+<h1><img src="images/hbnb img.png" alt="logo python" width="650" height="270"><br/><b>0x00. AirBnB clone - The console</b></h1>
 
 [![contribuitors](https://img.shields.io/github/contributors/cbarros7/AirBnB_clone?style=plastic)](https://github.com/cbarros7/AirBnB_clone/graphs/contributors)
 [![lisence](https://img.shields.io/github/license/cbarros7/AirBnB_clone?style=plastic)](https://github.com/cbarros7/AirBnB_clone/blob/master/LICENSE)
@@ -61,3 +61,132 @@ e.g., For models/user.py, unit tests must be in: tests/test_models/test_user.py
 - All your classes should have a documentation (python3 -c 'print(__import__("my_module").MyClass.__doc__)')
 - All your functions (inside and outside a class) should have a documentation (python3 -c 'print(__import__("my_module").my_function.__doc__)' and python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)')
 - We strongly encourage you to work together on test cases, so that you don’t miss any edge case
+
+# HOW WORK THE CONSOL
+
+## Steep for test the console
+### 1. Clone the repository with HTTPS:
+```
+$ git clone https://github.com/cbarros7/AirBnB_clone.git
+```
+### 2. Go to folder AirBnB_clone
+```
+$ cd AirBnB_clone
+```
+### 3. Run the consol file
+```
+$ ./console.py
+```
+Alfter in you screen can show the prompt of the terminal:
+```
+(hbnb)
+```
+
+## Command for test the console
+the command that you can type are:
+- help ó ?: this show the help avalible for command and the commands.
+```
+(hbnb)?
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb)help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb)
+```
+- **EOF** and **quit**: this commands are for exit the console, the EOF is the signal get to press the key combination Ctrl + d
+```
+(hbnb)quit
+❯
+
+  ~/holberton/AirBnB_clone   master ·········  07:48:50 PM ─╮
+❯
+```
+- **create**: you can create an instane of the class that you want. The command is ***create "class name" or "class name". create()***, if the instance is create correcty it is saved and in screen console show you the ***id*** for instance created. The clas avalible are
+   - BaseModel
+   - Place
+   - User
+   - Amenity
+   - City
+   - State
+   - Review
+```
+(hbnb)create Place
+93d823aa-f03a-41f6-bf80-aecaa7445d1d
+(hbnb)
+(hbnb)create User
+07563c34-e7f8-4b20-84bb-73ff9e30291b
+(hbnb)
+(hbnb)User.create()
+b81095e8-1ad3-4ccf-b525-695baac4d071
+(hbnb)
+(hbnb)BaseModel.create()
+5984b7e6-8c9b-4593-ac87-6bc17a9c400d
+(hbnb)
+(hbnb)
+```
+
+
+- **all**: this command show you all instances saved, and have many usage forms. if the file.json is not avalible or until the user not to created anything the command show a list empty, else the command print the information. the usage forms is ***all or all "class name" or "class name".all()***, if you specify the class name the console find and return only class with name specated.
+```
+(hbnb)all
+[]
+(hbnb)all BaseModel
+[]
+(hbnb)all
+["[Place] (93d823aa-f03a-41f6-bf80-aecaa7445d1d) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 16, 57756), 'id': '93d823aa-f03a-41f6-bf80-aecaa7445d1d', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 16, 57733)}", "[User] (07563c34-e7f8-4b20-84bb-73ff9e30291b) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 23, 121839), 'id': '07563c34-e7f8-4b20-84bb-73ff9e30291b', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 23, 121816)}", "[User] (b81095e8-1ad3-4ccf-b525-695baac4d071) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778710), 'id': 'b81095e8-1ad3-4ccf-b525-695baac4d071', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778702)}", "[BaseModel] (5984b7e6-8c9b-4593-ac87-6bc17a9c400d) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 44, 768066), 'id': '5984b7e6-8c9b-4593-ac87-6bc17a9c400d', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 44, 768044)}"]
+(hbnb)all BaseModel
+["[BaseModel] (5984b7e6-8c9b-4593-ac87-6bc17a9c400d) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 44, 768066), 'id': '5984b7e6-8c9b-4593-ac87-6bc17a9c400d', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 44, 768044)}"]
+(hbnb)
+(hbnb)Place.all()
+["[Place] (93d823aa-f03a-41f6-bf80-aecaa7445d1d) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 16, 57756), 'id': '93d823aa-f03a-41f6-bf80-aecaa7445d1d', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 16, 57733)}"]
+(hbnb)
+```
+
+- **show**: this command is similar to all but show you the espefic instance for id and name class. the usage is ***show "class name" "class id" or "class name".show(class id)***
+```
+(hbnb)
+(hbnb)show User b81095e8-1ad3-4ccf-b525-695baac4d071
+[User] (b81095e8-1ad3-4ccf-b525-695baac4d071) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778710), 'id': 'b81095e8-1ad3-4ccf-b525-695baac4d071', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778702)}
+(hbnb)
+(hbnb)User.show(b81095e8-1ad3-4ccf-b525-695baac4d071)
+[User] (b81095e8-1ad3-4ccf-b525-695baac4d071) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778710), 'id': 'b81095e8-1ad3-4ccf-b525-695baac4d071', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778702)}
+(hbnb)
+(hbnb)
+```
+
+- **update**: this command is for update the eny class that you need create a new attribute, the usage is ***update "lass name" "id" "attribute name" "attribute value" or User.update("38f22813-2753-4d42-b37c-57a17f1e4f88", "first_name", "Jose")***
+```
+(hbnb)
+(hbnb)update User b81095e8-1ad3-4ccf-b525-695baac4d071 first_name "Jose Vallejo C."
+(hbnb)
+(hbnb)show User b81095e8-1ad3-4ccf-b525-695baac4d071
+[User] (b81095e8-1ad3-4ccf-b525-695baac4d071) {'updated_at': datetime.datetime(2020, 7, 1, 20, 27, 26, 376508), 'id': 'b81095e8-1ad3-4ccf-b525-695baac4d071', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778702), 'first_name': 'Jose Vallejo C.'}
+(hbnb)
+(hbnb)User.update("b81095e8-1ad3-4ccf-b525-695baac4d071", "first_name", "Carlos Barros")
+(hbnb)
+(hbnb)show User b81095e8-1ad3-4ccf-b525-695baac4d071
+[User] (b81095e8-1ad3-4ccf-b525-695baac4d071) {'updated_at': datetime.datetime(2020, 7, 1, 20, 29, 11, 686213), 'id': 'b81095e8-1ad3-4ccf-b525-695baac4d071', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 32, 778702), 'first_name': 'Carlos'}
+(hbnb)
+(hbnb)
+```
+
+- **destroy**: when you want delete an class saved in the file.json usage this command typed ***destroy "class name" "class id" or "class name.destroy(id class)***
+```
+(hbnb)
+(hbnb)Place.show("93d823aa-f03a-41f6-bf80-aecaa7445d1d")
+(hbnb)
+["[Place] (93d823aa-f03a-41f6-bf80-aecaa7445d1d) {'updated_at': datetime.datetime(2020, 7, 1, 20, 2, 16, 57756), 'id': '93d823aa-f03a-41f6-bf80-aecaa7445d1d', 'created_at': datetime.datetime(2020, 7, 1, 20, 2, 16, 57733)}"]
+(hbnb)
+(hbnb)Place.destroy("93d823aa-f03a-41f6-bf80-aecaa7445d1d")
+(hbnb)
+(hbnb)Place.show("93d823aa-f03a-41f6-bf80-aecaa7445d1d")
+show Place 93d823aa-f03a-41f6-bf80-aecaa7445d1d
+** no instance found **
+(hbnb)
