@@ -4,9 +4,6 @@
 	margin-top: 30px;
 	margin-bottom: 30px;
 	text-align: left;
-
-
-
 }
 .filters {
 	display: inline-block;
@@ -15,6 +12,7 @@
 	width: 100%;
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
+
 
 }
 
@@ -29,7 +27,6 @@ button {
 	width: 20%;
 	border: 0px;
 	border-radius: 4px;
-
 }
 
 button:hover {
@@ -37,18 +34,20 @@ button:hover {
 }
 
 .locations, .amenities {
-	display: inline-block;
+	float: left;;
 	line-height: 25px;
-	border-right: 1px solid #DDDDDD;
 	vertical-align: middle;
 	height: 100%;
 	width: 25%;
 	text-align: left;
 	padding-left: 30px;
-	padding-top: 10px;
 }
 
-.amenities {
-	border: 0px;
+.locations {
+	border-right: 1px solid #DDDDDD;
+
 }
 
+.locations h3, .amenities h3 {
+	margin-top: 10px;
+}
