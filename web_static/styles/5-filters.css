@@ -3,13 +3,13 @@
 	max-width: 1000px;
 	margin-top: 30px;
 	margin-bottom: 30px;
-	text-align: right;
+	text-align: left;
 
 
 
 }
 .filters {
-	display: table;
+	display: inline-block;
 	background-color: white;
 	height: 70px;
 	width: 100%;
@@ -18,13 +18,10 @@
 
 }
 
-.bt_container {
-	display: table-cell;
-	vertical-align: middle;
-}
-
 button {
+	float: right;
 	margin-right: 30px;
+	margin-top: 11px;
 	font-size: 18px;
 	background-color: #FF5A5F;
 	color: #FFFFFF;
@@ -32,13 +29,26 @@ button {
 	width: 20%;
 	border: 0px;
 	border-radius: 4px;
+
 }
 
 button:hover {
 	opacity: 90%;
 }
 
-
-button p {
-	margin: 0px;
+.locations, .amenities {
+	display: inline-block;
+	line-height: 25px;
+	border-right: 1px solid #DDDDDD;
+	vertical-align: middle;
+	height: 100%;
+	width: 25%;
+	text-align: left;
+	padding-left: 30px;
+	padding-top: 10px;
 }
+
+.amenities {
+	border: 0px;
+}
+

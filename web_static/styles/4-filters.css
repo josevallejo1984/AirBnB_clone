@@ -37,8 +37,3 @@ button {
 button:hover {
 	opacity: 90%;
 }
-
-
-button p {
-	margin: 0px;
-}
