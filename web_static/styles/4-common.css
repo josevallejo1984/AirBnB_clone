@@ -1,13 +1,16 @@
 body {
-	margin: 0;
-	padding: 0;
-	color: #484848;
-	font-size: 14px;
-	font-family: Arial, "Helvetica Neue", sans-serif, Helvetica;
-
+  margin: 0;
+  padding: 0;
+  color: #484848;
+  font-size: 14px;
+  font-family: Arial, "Helvetica Neue", sans-serif, Helvetica;
 }
 
-h1, h2, h3, h4, p {
-	margin: 0;
-	padding: 0;
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+  padding: 0;
 }
