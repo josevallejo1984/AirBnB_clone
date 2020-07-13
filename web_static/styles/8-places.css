@@ -44,4 +44,42 @@
 	margin-top: 10px;
 }
 
+.information {
+	position: relative;
+	height: 80px;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	margin-top: 80px;
+}
 
+.max_guest, .number_rooms, .number_bathrooms {
+	display: inline-block;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-position-y: 5px;
+}
+
+.max_guest p, .number_rooms p, .number_bathrooms p {
+	font-size: 15px;
+	margin-top: 60px;
+}
+
+.max_guest {
+	background-image: url("/web_static/images/icon_group.png");
+}
+
+.number_rooms {
+	background-image: url("/web_static/images/icon_bed.png");
+}
+
+.number_bathrooms {
+	background-image: url("/web_static/images/icon_bath.png");
+}
+
+.user, .description{
+	font-size: 15px;
+	text-align: start;
+	margin-top: 10px;
+
+}
